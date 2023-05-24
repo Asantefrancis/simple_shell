@@ -1,9 +1,4 @@
 #include "shell.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
 
 /**
  * prompt_user - Prompts the user for input
@@ -15,35 +10,35 @@ void prompt_user(void)
 }
 
 /**
- * read_cmd - Reads a command from the user
- * @cmd: Buffer to store the command received from the user
+ * read_cmd - Reads user command
+ * @command: Buffer that stores the command received from the user
  */
-void read_cmd(char *cmd)
+void read_cmd(char *command)
 {
 	size_t n = 0;
 	ssize_t num_char;
 
-	num_char = getline(&cmd, &n, stdin);
+	num_char = getline(&command, &n, stdin);
 	if (num_char == -1)
 	{
 		perror("getline");
 		exit(EXIT_FAILURE);
 	}
 
-	if (cmd[num_char - 1] == '\n')
-		cmd[num_char - 1] = '\0';
+	if (command[num_char - 1] == '\n')
+		command[num_char - 1] = '\0';
 }
 
 /**
  * execute_cmd - Executes the user's command
- * @cmd: The command to execute
+ * @command: The command to execute
  */
-void execute_cmd(char *cmd)
+void execute_cmd(char *command)
 {
 	char *args[BUFFER_SIZE];
 	int arg_index = 0, status;
 	pid_t child_pid;
-	char *token = strtok(cmd, " ");
+	char *token = strtok(command, " ");
 
 	while (token != NULL)
 	{
