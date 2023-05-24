@@ -15,6 +15,6 @@ int main(void)
 		read_cmd(command);
 		execute_cmd(command);
 	}
-	free (command);
+	free(command);
 	return (0);
 }
