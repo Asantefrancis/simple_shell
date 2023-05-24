@@ -1,20 +1,18 @@
 #include "shell.h"
 
 /**
- * main - Main entry for built shell.
+ * main - Entry point of the program
+ * @ac: The number of command-line arguments
+ * @av: Array of command-line argument strings
+ * @env: Array of environment variable strings
  *
  * Return: Always 0
  */
-int main(void)
+int main(int ac, char **av, char **env)
 {
-	char *command = NULL;
+	if (ac == 1)
+		prompt(av, env);
 
-	while (1)
-	{
-		prompt_user();
-		read_cmd(command);
-		execute_cmd(command);
-	}
-	free(command);
 	return (0);
 }
+
