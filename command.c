@@ -1,17 +1,18 @@
 #include "shell.h"
 
 /**
- * prompt_user - Prompts the user for input
+ * prompt_user - Prompts user for input
  */
+
 void prompt_user(void)
 {
 	if (isatty(STDIN_FILENO))
-	write(STDOUT_FILENO, "cisfun$ ", 8);
+		write(STDOUT_FILENO, "cisfun$ ", 8);
 }
 
 /**
- * read_cmd - Reads user command
- * @command: Buffer that stores the command received from the user
+ * read_cmd - Reads user's command
+ * @command: Pointer to the command buffer
  */
 void read_cmd(char *command)
 {
@@ -30,15 +31,15 @@ void read_cmd(char *command)
 }
 
 /**
- * execute_cmd - Executes the user's command
- * @command: The command to execute
+ * execute_cmd - Executes user's command
+ * @command: Pointer to the command string
  */
 void execute_cmd(char *command)
 {
 	char *args[BUFFER_SIZE];
-	int arg_index = 0, status;
-	pid_t child_pid;
+	int arg_index = 0;
 	char *token = strtok(command, " ");
+	pid_t pid;
 
 	while (token != NULL)
 	{
@@ -47,14 +48,15 @@ void execute_cmd(char *command)
 	}
 	args[arg_index] = NULL;
 
-	child_pid = fork();
 
-	if (child_pid == -1)
+	pid = fork();
+
+	if (pid == -1)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	else if (child_pid == 0)
+	else if (pid == 0)
 	{
 		if (execve(args[0], args, NULL) == -1)
 		{
@@ -64,7 +66,7 @@ void execute_cmd(char *command)
 	}
 	else
 	{
-		waitpid(child_pid, &status, 0);
+		wait(NULL);
 	}
 }
 

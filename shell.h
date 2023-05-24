@@ -8,9 +8,10 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <string.h>
 
 void prompt_user(void);
-void read_cmd(char *cmd);
-void execute_cmd(char *cmd);
+void read_cmd(char *command);
+void execute_cmd(char *command);
 
 #endif
