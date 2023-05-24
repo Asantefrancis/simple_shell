@@ -1,7 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#define BUFFER_SIZE 1024
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -10,8 +9,9 @@
 #include <sys/types.h>
 #include <string.h>
 
-void prompt_user(void);
-void read_cmd(char *command);
-void execute_cmd(char *command);
+int main(int ac, char **av, char **env);
+void prompt(char **av, char **env);
+void child_process(char **av, char **env, char **argv);
+void parent_process(int *status);
 
 #endif
