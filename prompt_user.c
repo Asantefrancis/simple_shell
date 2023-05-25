@@ -58,7 +58,8 @@ void execute_cmd(char *command)
 	{
 		if (execve(args[0], args, NULL) == -1)
 		{
-			perror("execve");
+			write(STDOUT_FILENO, "./shell: ", 9);
+			perror("");
 			exit(EXIT_FAILURE);
 		}
 	}
