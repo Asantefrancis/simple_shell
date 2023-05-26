@@ -1,93 +1,122 @@
 #include "shell.h"
 
 /**
- * copy_environ - returns a copy of the environ as a string array
- * @info: Structure containing potential arguments
- *
- * Return: Copy of the environ as a string array
+ * copy_env_strings - Creates a copy of the environment variables as a string array
+ * @env: Pointer to the environment variables linked list
+ * Return: String array containing the environment variables
  */
-char **copy_environ(info_t *info)
+char **copy_env_strings(list_t *env)
 {
-	if (!info->environ || info->env_changed)
+	char **env_strings;
+	int count = 0;
+	list_t *node = env;
+
+	while (node != NULL)
 	{
-		info->environ = list_to_strings(info->env);
-		info->env_changed = 0;
+		count++;
+		node = node->next;
 	}
 
-	return (info->environ);
+	env_strings = malloc(sizeof(char *) * (count + 1));
+	if (env_strings == NULL)
+		return NULL;
+
+	node = env;
+	count = 0;
+	while (node != NULL)
+	{
+		env_strings[count] = strdup(node->str);
+		if (env_strings[count] == NULL)
+		{
+			/* Free memory in case of error */
+			while (count > 0)
+			{
+				count--;
+				free(env_strings[count]);
+			}
+			free(env_strings);
+			return NULL;
+		}
+		count++;
+		node = node->next;
+	}
+	env_strings[count] = NULL;
+
+	return env_strings;
 }
 
 /**
- * remove_environment_variable - Remove an environment variable
- * @info: Structure containing potential arguments
- * @var: the string env var property
- *
- * Return: 1 on successful deletion, 0 otherwise
+ * remove_env_var - Remove an environment variable
+ * @env: Pointer to the environment variables linked list
+ * @var: The name of the environment variable to remove
+ * Return: 1 on success, 0 if variable not found
  */
-int remove_environment_variable(info_t *info, char *var)
+int remove_env_var(list_t **env, const char *var)
 {
-	list_t *node = info->env;
-	size_t index = 0;
-	char *p;
+	list_t *current, *prev;
 
-	if (!node || !var)
-		return (0);
+	if (*env == NULL || var == NULL)
+		return 0;
 
-	while (node)
+	current = *env;
+	prev = NULL;
+	while (current != NULL)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		if (starts_with(current->str, var) == current->str)
 		{
-			info->env_changed = delete_node_at_index(&(info->env), index);
-			index = 0;
-			node = info->env;
-			continue;
+			if (prev == NULL)
+				*env = current->next;
+			else
+				prev->next = current->next;
+			free(current->str);
+			free(current);
+			return 1;
 		}
-		node = node->next;
-		index++;
+		prev = current;
+		current = current->next;
 	}
-	return (info->env_changed);
+
+	return 0;
 }
 
 /**
- * set_environment_variable - Initialize a new environment variable
- *                            or modify an existing one
- * @info: Structure containing potential arguments
- * @var: the string env var property
- * @value: the string env var value
- *
- * Return: Always 0
+ * set_env_var - Set or modify an environment variable
+ * @env: Pointer to the environment variables linked list
+ * @var: The name of the environment variable
+ * @value: The value to set for the environment variable
+ * Return: 1 on success, 0 on failure
  */
-int set_environment_variable(info_t *info, char *var, char *value)
+int set_env_var(list_t **env, const char *var, const char *value)
 {
-	char *buf = NULL;
-	list_t *node;
-	char *p;
+	char *new_var;
+	list_t *current;
 
-	if (!var || !value)
-		return (0);
+	if (env == NULL || var == NULL || value == NULL)
+		return 0;
 
-	buf = malloc(_strlen(var) + _strlen(value) + 2);
-	if (!buf)
-		return (1);
-	_strcpy(buf, var);
-	_strcat(buf, "=");
-	_strcat(buf, value);
-	node = info->env;
-	while (node)
+	new_var = malloc(strlen(var) + strlen(value) + 2);
+	if (new_var == NULL)
+		return 0;
+
+	sprintf(new_var, "%s=%s", var, value);
+
+	current = *env;
+	while (current != NULL)
 	{
-		p = starts_with(node->str, var);
-		if (p && *p == '=')
+		if (starts_with(current->str, var) == current->str)
 		{
-			free(node->str);
-			node->str = buf;
-			info->env_changed = 1;
-			return (0);
+			free(current->str);
+			current->str = new_var;
+			return 1;
 		}
-		node = node->next;
+		current = current->next;
 	}
-	add_node_end(&(info->env), buf, 0);
-	free(buf);
-	info->env_changed = 1;
-	return (0);
+
+	if (add_node_end(env, new_var) == NULL)
+	{
+		free(new_var);
+		return 0;
+	}
+
+	return 1;
 }

@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * copy_string - Copies a string.
- * @dest: The destination string to be copied to.
- * @src: The source string.
- * @n: The amount of characters to be copied.
- * Return: The copied string.
+ * _custom_strncpy - copies a string
+ * @dest: the destination string to be copied to
+ * @src: the source string
+ * @n: the number of characters to be copied
+ * Return: the concatenated string
  */
-char *copy_string(char *dest, char *src, int n)
+char *_custom_strncpy(char *dest, char *src, int n)
 {
 	int i, j;
 	char *s = dest;
@@ -27,17 +27,17 @@ char *copy_string(char *dest, char *src, int n)
 			j++;
 		}
 	}
-	return s;
+	return (s);
 }
 
 /**
- * concatenate_strings - Concatenates two strings.
- * @dest: The first string.
- * @src: The second string.
- * @n: The amount of bytes to be maximally used.
- * Return: The concatenated string.
+ * _custom_strncat - concatenates two strings
+ * @dest: the first string
+ * @src: the second string
+ * @n: the number of bytes to be maximally used
+ * Return: the concatenated string
  */
-char *concatenate_strings(char *dest, char *src, int n)
+char *_custom_strncat(char *dest, char *src, int n)
 {
 	int i, j;
 	char *s = dest;
@@ -54,21 +54,21 @@ char *concatenate_strings(char *dest, char *src, int n)
 	}
 	if (j < n)
 		dest[i] = '\0';
-	return s;
+	return (s);
 }
 
 /**
- * find_character - Locates a character in a string.
- * @s: The string to be parsed.
- * @c: The character to look for.
- * Return: A pointer to the memory area of s.
+ * _custom_strchr - locates a character in a string
+ * @s: the string to be parsed
+ * @c: the character to look for
+ * Return: a pointer to the memory area s
  */
-char *find_character(char *s, char c)
+char *_custom_strchr(char *s, char c)
 {
 	do {
 		if (*s == c)
-			return s;
+			return (s);
 	} while (*s++ != '\0');
 
-	return NULL;
+	return (NULL);
 }
