@@ -137,7 +137,8 @@ int _getline(info_t *info, char **ptr, size_t *length)
 
 	c = _strchr(buf + i, '\n');
 	k = c ? 1 + (unsigned int)(c - buf) : len;
-	new_p = _realloc(p, bytes_read_total, bytes_read_total ? bytes_read_total + k : k + 1);
+	size_t size = bytes_read_total != 0 ? bytes_read_total + k : k;
+new_p = _realloc(p, size, size + (bytes_read_total != 0 ? 0 : 1));
 	if (!new_p) /* MALLOC FAILURE! */
 		return (p ? free(p), -1 : -1);
 

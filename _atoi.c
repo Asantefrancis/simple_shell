@@ -40,7 +40,9 @@ int _isalpha(int c)
 	int uppercase_min = 'A';
 	int uppercase_max = 'Z';
 
-	if ((c >= lowercase_min && c <= lowercase_max) || (c >= uppercase_min && c <= uppercase_max))
+	int _isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
 	else
 		return (0);
@@ -52,6 +54,7 @@ int _isalpha(int c)
  * Return: 0 if no numbers in string, converted number otherwise
  */
 int _atoi(char *s)
+
 {
 	int i, sign = 1, flag = 0, output;
 	unsigned int result = 0;
@@ -70,11 +73,9 @@ int _atoi(char *s)
 		else if (flag == 1)
 			flag = 2;
 	}
-
 	if (sign == -1)
 		output = -result;
 	else
 		output = result;
-
 	return (output);
 }

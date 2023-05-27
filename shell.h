@@ -1,13 +1,6 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 
-<<<<<<< HEAD
-=======
-#define BUFFER_SIZE 1024
-
-#include <unistd.h>
-#include <stdlib.h>
->>>>>>> 6b55f6ebe3e4ffd9bf4f02b860302b16c3466c12
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -232,17 +225,11 @@ size_t print_list(const list_t *);
 list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
-<<<<<<< HEAD
 /* toem_vars.c */
 int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int replace_vars(info_t *);
 int replace_string(char **, char *);
-=======
-void prompt_user(void);
-void read_cmd(char **command);
-void execute_cmd(char *command);
->>>>>>> 6b55f6ebe3e4ffd9bf4f02b860302b16c3466c12
 
 #endif

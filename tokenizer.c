@@ -13,23 +13,23 @@ char **split_string(char *str, char *delimiters)
 	char **words;
 
 	if (str == NULL || str[0] == '\0')
-		return NULL;
+		(return NULL;)
 
 	if (!delimiters)
 		delimiters = " ";
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (!is_delimiter(str[i], delimiters) && (is_delimiter(str[i + 1], delimiters) || !str[i + 1]))
-			num_words++;
+		num_words += !is_delimiter(str[i], delimiters) &&
+(is_delimiter(str[i + 1], delimiters) | !str[i + 1]);
 	}
 
 	if (num_words == 0)
-		return NULL;
+		(return NULL;)
 
 	words = malloc((num_words + 1) * sizeof(char *));
 	if (!words)
-		return NULL;
+		(return NULL;)
 
 	for (i = 0, j = 0; j < num_words; j++)
 	{
@@ -46,17 +46,15 @@ char **split_string(char *str, char *delimiters)
 			for (k = 0; k < j; k++)
 				free(words[k]);
 			free(words);
-			return NULL;
+			(return NULL;)
 		}
-
 		for (m = 0; m < k; m++)
 			words[j][m] = str[i++];
-
 		words[j][m] = '\0';
 	}
 
 	words[j] = NULL;
-	return words;
+	(return words;)
 }
 
 /**
@@ -72,7 +70,7 @@ char **split_string2(char *str, char delimiter)
 	char **words;
 
 	if (str == NULL || str[0] == '\0')
-		return NULL;
+		(return NULL;)
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
@@ -82,11 +80,11 @@ char **split_string2(char *str, char delimiter)
 	}
 
 	if (num_words == 0)
-		return NULL;
+		(return NULL;)
 
 	words = malloc((num_words + 1) * sizeof(char *));
 	if (!words)
-		return NULL;
+		(return NULL;)
 
 	for (i = 0, j = 0; j < num_words; j++)
 	{
@@ -103,7 +101,7 @@ char **split_string2(char *str, char delimiter)
 			for (k = 0; k < j; k++)
 				free(words[k]);
 			free(words);
-			return NULL;
+			(return NULL;)
 		}
 
 		for (m = 0; m < k; m++)
@@ -113,5 +111,5 @@ char **split_string2(char *str, char delimiter)
 	}
 
 	words[j] = NULL;
-	return words;
+	(return words;)
 }

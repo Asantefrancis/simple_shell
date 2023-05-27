@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * copy_env_strings - Creates a copy of the environment variables as a string array
+ * copy_env_strings - Creates a copy of environment variables as a string array
  * @env: Pointer to the environment variables linked list
  * Return: String array containing the environment variables
  */
@@ -19,7 +19,7 @@ char **copy_env_strings(list_t *env)
 
 	env_strings = malloc(sizeof(char *) * (count + 1));
 	if (env_strings == NULL)
-		return NULL;
+		(return NULL;)
 
 	node = env;
 	count = 0;
@@ -35,14 +35,14 @@ char **copy_env_strings(list_t *env)
 				free(env_strings[count]);
 			}
 			free(env_strings);
-			return NULL;
+			(return NULL;)
 		}
 		count++;
 		node = node->next;
 	}
 	env_strings[count] = NULL;
 
-	return env_strings;
+	(return env_strings;)
 }
 
 /**
@@ -56,7 +56,7 @@ int remove_env_var(list_t **env, const char *var)
 	list_t *current, *prev;
 
 	if (*env == NULL || var == NULL)
-		return 0;
+		(return 0;)
 
 	current = *env;
 	prev = NULL;
@@ -70,13 +70,13 @@ int remove_env_var(list_t **env, const char *var)
 				prev->next = current->next;
 			free(current->str);
 			free(current);
-			return 1;
+			(return 1;)
 		}
 		prev = current;
 		current = current->next;
 	}
 
-	return 0;
+	(return 0;)
 }
 
 /**
@@ -92,11 +92,11 @@ int set_env_var(list_t **env, const char *var, const char *value)
 	list_t *current;
 
 	if (env == NULL || var == NULL || value == NULL)
-		return 0;
+		(return 0;)
 
 	new_var = malloc(strlen(var) + strlen(value) + 2);
 	if (new_var == NULL)
-		return 0;
+		(return 0;)
 
 	sprintf(new_var, "%s=%s", var, value);
 
@@ -107,7 +107,7 @@ int set_env_var(list_t **env, const char *var, const char *value)
 		{
 			free(current->str);
 			current->str = new_var;
-			return 1;
+			(return 1;)
 		}
 		current = current->next;
 	}
@@ -115,8 +115,8 @@ int set_env_var(list_t **env, const char *var, const char *value)
 	if (add_node_end(env, new_var) == NULL)
 	{
 		free(new_var);
-		return 0;
+		(return 0;)
 	}
 
-	return 1;
+	(return 1;)
 }

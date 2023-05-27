@@ -13,11 +13,11 @@ list_t *addNode(list_t **head, const char *str, int num)
 	list_t *newHead;
 
 	if (!head)
-		return NULL;
+		(return NULL;)
 
 	newHead = malloc(sizeof(list_t));
 	if (!newHead)
-		return NULL;
+		(return NULL;)
 
 	memset((void *)newHead, 0, sizeof(list_t));
 	newHead->num = num;
@@ -28,14 +28,14 @@ list_t *addNode(list_t **head, const char *str, int num)
 		if (!newHead->str)
 		{
 			free(newHead);
-			return NULL;
+			(return NULL;)
 		}
 	}
 
 	newHead->next = *head;
 	*head = newHead;
 
-	return newHead;
+	(return newHead;)
 }
 
 /**
@@ -51,12 +51,12 @@ list_t *addNodeEnd(list_t **head, const char *str, int num)
 	list_t *newNode, *node;
 
 	if (!head)
-		return NULL;
+		(return NULL;)
 
 	node = *head;
 	newNode = malloc(sizeof(list_t));
 	if (!newNode)
-		return NULL;
+		(return NULL;)
 
 	memset((void *)newNode, 0, sizeof(list_t));
 	newNode->num = num;
@@ -67,7 +67,7 @@ list_t *addNodeEnd(list_t **head, const char *str, int num)
 		if (!newNode->str)
 		{
 			free(newNode);
-			return NULL;
+			(return NULL;)
 		}
 	}
 
@@ -80,7 +80,7 @@ list_t *addNodeEnd(list_t **head, const char *str, int num)
 	else
 		*head = newNode;
 
-	return newNode;
+	(return newNode;)
 }
 
 /**
@@ -101,7 +101,7 @@ size_t printListStr(const list_t *h)
 		i++;
 	}
 
-	return i;
+	(return i;)
 }
 
 /**
@@ -117,7 +117,7 @@ int deleteNodeAtIndex(list_t **head, unsigned int index)
 	unsigned int i = 0;
 
 	if (!head || !*head)
-		return 0;
+		(return 0;)
 
 	if (!index)
 	{
@@ -125,7 +125,7 @@ int deleteNodeAtIndex(list_t **head, unsigned int index)
 		*head = (*head)->next;
 		free(node->str);
 		free(node);
-		return 1;
+		(return 1;)
 	}
 
 	node = *head;
@@ -136,14 +136,14 @@ int deleteNodeAtIndex(list_t **head, unsigned int index)
 			prevNode->next = node->next;
 			free(node->str);
 			free(node);
-			return 1;
+			(return 1;)
 		}
 		i++;
 		prevNode = node;
 		node = node->next;
 	}
 
-	return 0;
+	(return 0;)
 }
 
 /**
