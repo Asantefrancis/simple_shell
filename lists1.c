@@ -16,7 +16,7 @@ size_t getListLength(const list_t *h)
 		length++;
 	}
 
-	return length;
+	(return length;)
 }
 
 /**
@@ -34,11 +34,11 @@ char **listToStrings(list_t *head)
 	size_t i, j;
 
 	if (!head || !length)
-		return NULL;
+		(return NULL;)
 
 	strings = malloc(sizeof(char *) * (length + 1));
 	if (!strings)
-		return NULL;
+		(return NULL;)
 
 	for (i = 0; node; node = node->next, i++)
 	{
@@ -48,7 +48,7 @@ char **listToStrings(list_t *head)
 			for (j = 0; j < i; j++)
 				free(strings[j]);
 			free(strings);
-			return NULL;
+			(return NULL;)
 		}
 
 		str = _stringCopy(str, node->str);
@@ -56,7 +56,7 @@ char **listToStrings(list_t *head)
 	}
 
 	strings[i] = NULL;
-	return strings;
+	(return strings;)
 }
 
 
@@ -81,7 +81,7 @@ size_t printList(const list_t *h)
 		count++;
 	}
 
-	return count;
+	(return count;)
 }
 
 /**
@@ -100,11 +100,11 @@ list_t *findNodeWithPrefix(list_t *node, char *prefix, char c)
 	{
 		p = startsWith(node->str, prefix);
 		if (p && ((c == -1) || (*p == c)))
-			return node;
+			(return node;)
 		node = node->next;
 	}
 
-	return NULL;
+	(return NULL;)
 }
 
 /**
@@ -121,10 +121,10 @@ ssize_t getNodeIndex(list_t *head, list_t *node)
 	while (head)
 	{
 		if (head == node)
-			return index;
+			(return index;)
 		head = head->next;
 		index++;
 	}
 
-	return -1;
+	(return -1;)
 }

@@ -13,9 +13,9 @@ int is_executable(info_t *info, char *path)
 
 	(void)info;
 	if (!path || stat(path, &st) != 0)
-		return 0;
+		(return 0;)
 
-	return (st.st_mode & S_IFREG) != 0;
+	(return (st.st_mode & S_IFREG) != 0;)
 }
 
 /**
@@ -38,7 +38,7 @@ char *duplicate_chars(char *pathstr, int start, int stop)
 	}
 
 	buf[k] = '\0';
-	return buf;
+	(return buf;)
 }
 
 /**
@@ -55,12 +55,12 @@ char *find_command_path(info_t *info, char *pathstr, char *cmd)
 	char *path;
 
 	if (!pathstr)
-		return NULL;
+		(return NULL;)
 
 	if (_strlen(cmd) > 2 && starts_with(cmd, "./"))
 	{
 		if (is_executable(info, cmd))
-			return cmd;
+			(return cmd;)
 	}
 
 	while (1)
@@ -77,7 +77,7 @@ char *find_command_path(info_t *info, char *pathstr, char *cmd)
 			}
 
 			if (is_executable(info, path))
-				return path;
+				(return path;)
 
 			if (!pathstr[i])
 				break;
@@ -88,5 +88,5 @@ char *find_command_path(info_t *info, char *pathstr, char *cmd)
 		i++;
 	}
 
-	return NULL;
+	(return NULL;)
 }

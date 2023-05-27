@@ -33,12 +33,12 @@ int main(int argc, char **argv)
 				writeCharacter(BUF_FLUSH);
 				exit(127);
 			}
-			return EXIT_FAILURE;
+			(return EXIT_FAILURE;)
 		}
 		information->readFileDescriptor = fileDescriptor;
 	}
 	populateEnvironmentList(information);
 	readHistory(information);
 	hsh(information, argv);
-	return EXIT_SUCCESS;
+	(return EXIT_SUCCESS;)
 }

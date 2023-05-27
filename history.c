@@ -12,18 +12,18 @@ char *getHistoryFile(info_t *info)
 
 	dir = getenvVariable(info, "HOME=");
 	if (!dir)
-		return NULL;
+		(return NULL;)
 
 	buf = malloc(sizeof(char) * (stringLength(dir) + stringLength(HIST_FILE) + 2));
 	if (!buf)
-		return NULL;
+		(return NULL;)
 
 	buf[0] = '\0';
 	stringCopy(buf, dir);
 	stringConcat(buf, "/");
 	stringConcat(buf, HIST_FILE);
 
-	return buf;
+	(return buf;)
 }
 
 /**
@@ -39,13 +39,13 @@ int writeHistory(info_t *info)
 	list_t *node = NULL;
 
 	if (!filename)
-		return -1;
+		(return -1;)
 
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	free(filename);
 
 	if (fd == -1)
-		return -1;
+		(return -1;)
 
 	for (node = info->history; node; node = node->next)
 	{
@@ -55,7 +55,7 @@ int writeHistory(info_t *info)
 	writeToFile(BUF_FLUSH, fd);
 	close(fd);
 
-	return 1;
+	(return 1;)
 }
 
 /**
@@ -72,23 +72,23 @@ int readHistory(info_t *info)
 	char *buf = NULL, *filename = getHistoryFile(info);
 
 	if (!filename)
-		return 0;
+		(return 0;)
 
 	fd = open(filename, O_RDONLY);
 	free(filename);
 
 	if (fd == -1)
-		return 0;
+		(return 0;)
 
 	if (!fstat(fd, &st))
 		fsize = st.st_size;
 
 	if (fsize < 2)
-		return 0;
+		(return 0;)
 
 	buf = malloc(sizeof(char) * (fsize + 1));
 	if (!buf)
-		return 0;
+		(return 0;)
 
 	rdlen = read(fd, buf, fsize);
 	buf[fsize] = '\0';
@@ -107,19 +107,14 @@ int readHistory(info_t *info)
 			last = i + 1;
 		}
 	}
-
 	if (last != i)
 		buildHistoryList(info, buf + last, linecount++);
-
 	free(buf);
 	info->histcount = linecount;
-
 	while (info->histcount-- >= HIST_MAX)
 		deleteNodeAtIndex(&(info->history), 0);
-
 	renumberHistory(info);
-
-	return info->histcount;
+	(return info->histcount;)
 }
 
 /**
@@ -142,7 +137,7 @@ int buildHistoryList(info_t *info, char *buf, int linecount)
 	if (!info->history)
 		info->history = node;
 
-	return 0;
+	(return 0;)
 }
 
 /**

@@ -60,7 +60,7 @@ int print_d(int input, int fd)
 
 	if (fd == STDERR_FILENO)
 		putchar_func = _eputchar;
-	if (input < 0)
+	if (input < 0)i
 	{
 		 abs_val = -input;
 		putchar_func('-');
